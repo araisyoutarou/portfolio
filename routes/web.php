@@ -18,7 +18,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/', 'BooksController@show')->name('top_page');
-    Route::get('/', 'CalendarController@show');
+   Route::get('/', 'CalendarController@show')->name('top_page');
+    
 });
 
