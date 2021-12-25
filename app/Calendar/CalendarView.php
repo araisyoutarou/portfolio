@@ -12,6 +12,7 @@ class CalendarView {
 	}
 	/**
 	 * タイトル
+	 * getTitle関数とは、題名（viewファイルで表示したカレンダーの〇年〇月）を取得する際に使用する。
 	 */
 	public function getTitle(){
 		return $this->carbon->format('Y年n月');
@@ -31,8 +32,8 @@ class CalendarView {
 		$html[] = '<th>水</th>';
 		$html[] = '<th>木</th>';
 		$html[] = '<th>金</th>';
-		$html[] = '<th>土</th>';
-        $html[] = '<th>日</th>';
+		$html[] = '<th class="saturday">土</th>';
+        $html[] = '<th class="sunday">日</th>';
 		$html[] = '</tr>';
 		$html[] = '</thead>';
 		
@@ -62,10 +63,14 @@ class CalendarView {
 		$weeks = [];
 
 		//初日
+		// firstOfMonthでは、取得する月数が決定されている。
 		$firstDay = $this->carbon->copy()->firstOfMonth();
+		echo Carbon::parse('+1 month')->firstOfMonth();
+		
 
 		//月末まで
 		$lastDay = $this->carbon->copy()->lastOfMonth();
+		echo Carbon::parse('+1 month')->lastOfMonth();
 
 		//1週目
 		$week = new CalendarWeek($firstDay->copy());

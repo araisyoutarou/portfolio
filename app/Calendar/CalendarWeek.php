@@ -8,6 +8,9 @@ class CalendarWeek {
 	protected $carbon;
 	protected $index = 0;
 
+// $dateは、calendarviewの初日を引数にしている。
+// 15行目では、今月の１日を$this->carbonに代入している。
+// $this->carbonは、8行目とつながっている。
 	function __construct($date, $index = 0){
 		$this->carbon = new Carbon($date);
 		$this->index = $index;
