@@ -39,12 +39,15 @@ class CalendarView {
 		
 		$html[] = '<tbody>';
 		
+		//getWeeksは、指定された年月日から、その日の曜日を算出する。
 		$weeks = $this->getWeeks();
 		foreach($weeks as $week){
 			$html[] = '<tr class="'.$week->getClassName().'">';
 			$days = $week->getDays();
 			foreach($days as $day){
 				$html[] = '<td class="'.$day->getClassName().'">';
+				$html[] = '<a href="https://0f4d0c05e99346ba90e964c6116063e4.vfs.cloud9.ap-northeast-1.amazonaws.com/calendar/memo">';
+
 				$html[] = $day->render();
 				$html[] = '</td>';
 			}
@@ -65,14 +68,13 @@ class CalendarView {
 		//初日
 		// firstOfMonthでは、取得する月数が決定されている。
 		$firstDay = $this->carbon->copy()->firstOfMonth();
-		echo Carbon::parse('+1 month')->firstOfMonth();
 		
 
 		//月末まで
 		$lastDay = $this->carbon->copy()->lastOfMonth();
-		echo Carbon::parse('+1 month')->lastOfMonth();
 
 		//1週目
+		//初日を指定してCalendarWeekを実行している。
 		$week = new CalendarWeek($firstDay->copy());
 		$weeks[] = $week;
 
@@ -80,6 +82,7 @@ class CalendarView {
 		$tmpDay = $firstDay->copy()->addDay(7)->startOfWeek();
 
 		//月末までループさせる
+		//作業日が月末以下である限りループする。
 		while($tmpDay->lte($lastDay)){
 			//週カレンダーViewを作成する
 			$week = new CalendarWeek($tmpDay, count($weeks));

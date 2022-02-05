@@ -15,10 +15,15 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::group(['middleware' => 'auth'], function() {
    Route::get('/', 'CalendarController@show')->name('top_page');
-    
+   Route::get('calendar/memo', 'CalendarMemoController@show')->name('next_page');
+   Route::get('calendar/memo/edit', 'CalendarMemoController@edit')->name('edit_page');
+   Route::get('debug', 'DebugController@show')->name('debug');
+   Route::get('calendar/memo', 'CalendarMemoController@index')->name('index_page');
+   
+   Route::post('/create', 'CalendarMemoController@create')->name('create_page');
+   Route::post('calendar/memo/edit', 'CalendarMemoController@update')->name('update_page'); 
 });
-

@@ -35,6 +35,7 @@ class CalendarWeek {
 		$tmpDay = $startDay->copy();
 
 		//月曜日〜日曜日までループ
+		//作業日が月末以下である限りループする
 		while($tmpDay->lte($lastDay)){
 
 			//前の月、もしくは後ろの月の場合は空白を表示
