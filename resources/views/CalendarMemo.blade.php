@@ -1,6 +1,5 @@
 @extends('layouts.CalendarMemo')
 @section('content')
-{{$val}}
 <h1 class="title">家計簿アプリ</h1>
 
 <form action="{{ route('create_page', ['id' => 1]) }}" method="post">
@@ -36,11 +35,14 @@
 <div class="form-group row">
     <label class="col-md-2" for="diary">買い物メモ</label>
     <div class="col-md-10">
-        <textarea class="form-control" name="diary" rows="20">{{ old('diary') }}</textarea>
+        <textarea class="form-control" name="diary" rows="20">{{ $diary->diary }}</textarea>
     </div>
 </div>
     @csrf
     <input type="submit" class="btn btn-primary" value="更新">
+    <a href="{{ route('edit_page', ['id' => 1]) }}" role="button" class="btn btn-primary">編集</a>
 </form>
+
+
 
 @endsection

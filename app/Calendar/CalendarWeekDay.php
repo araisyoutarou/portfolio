@@ -19,4 +19,9 @@ class CalendarWeekDay {
 	function render(){
 		return '<p class="day">' . $this->carbon->format("j"). '</p>';
 	}
+	
+	function numberDay(){
+		return $this->carbon->format("Y-m-d");
+	}
+
 }

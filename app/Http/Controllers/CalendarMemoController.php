@@ -8,7 +8,15 @@ use App\Book;
 class CalendarMemoController extends Controller
 {
     public function show(){
-        return view('CalendarMemo');
+        // whereDateは、Bookモデルから指定したカラムで該当する値のレコードを絞り込んで、getでそれを配列にして返す。
+        $date= Book::whereDate('created_at', '2022-01-28')->get();
+        // dd($date);
+        foreach($date as $diary){
+            // 代入を工夫
+            $memo = $diary->diary;
+        }
+        // dd($memo);
+        return view('CalendarMemo', ['date' => $date, 'diary' => $diary]);
         
     }
     
@@ -66,7 +74,7 @@ class CalendarMemoController extends Controller
     {
         // Validationをかける
         $this->validate($request, Book::$rules);
-        // News Modelからデータを取得する
+        // Book Modelからデータを取得する
         $books = Book::find($request->id);
         // 送信されてきたフォームデータを格納する
         $books_form = $request->all();
@@ -78,12 +86,24 @@ class CalendarMemoController extends Controller
         return redirect('/');
   }
   
+    // 削除
+    public function delete(Request $request)
+    {
+        // 該当するBook Modelを取得
+        $books = Book::find($request->id);
+        // 削除する
+        $books->delete();
+        
+        return redirect('/');
+  }  
+
+  
     // パラメータ
 	public function index(Request $request)
 	{
-		$value = $request->input('value');
+		$day = $request->input('day');
 		//dd($value);
-        return view('CalendarMemo')->with('val', $value);
+        return view('CalendarMemo')->with('day', $day);
 		
 	}
 }

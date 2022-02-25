@@ -45,9 +45,10 @@ class CalendarView {
 			$html[] = '<tr class="'.$week->getClassName().'">';
 			$days = $week->getDays();
 			foreach($days as $day){
+				// cssのクラス名動的
 				$html[] = '<td class="'.$day->getClassName().'">';
-				$html[] = '<a href="https://0f4d0c05e99346ba90e964c6116063e4.vfs.cloud9.ap-northeast-1.amazonaws.com/calendar/memo">';
-
+				$html[] = '<a href="'.route('next_page', ['day' => $day->numberDay()]).'">';
+                // カレンダーの数字
 				$html[] = $day->render();
 				$html[] = '</td>';
 			}

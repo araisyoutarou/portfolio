@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div class="button">
-   <button disabled>カレンダー</button>
-   <button onclick="">円グラフ</button>
-</div>
+   <div class="button">
+      <button disabled>カレンダー</button>
+      <button onclick="location.href='https://0f4d0c05e99346ba90e964c6116063e4.vfs.cloud9.ap-northeast-1.amazonaws.com/graph'">円グラフ</button>
+   </div>
 
 <h1 class="title">家計簿アプリ</h1>
 
