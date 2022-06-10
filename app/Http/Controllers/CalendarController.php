@@ -7,30 +7,37 @@ use App\Calendar\CalendarView;
 
 class CalendarController extends Controller
 {
-    public function show(){
+    public function show(Request $request){
+		date_default_timezone_set('UTC');
+		$year = $request->year;
+		$month = $request->month;
+		$calendar = array(new CalendarView(strtotime($year . '-1')));
+		// もし$yearがnullかつ$monthがnullだったら
+		if($year == null && $month == null){
+			// $yearに現在の年を代入,$monthに現在の月を代入する
+			$year = date('Y');
+			$month = date('n');
+		} elseif($month == 'year'){
+			$calendar = array(
+				new CalendarView(strtotime($year . '-1')),
+				new CalendarView(strtotime($year . '-2')), 
+		        new CalendarView(strtotime($year . '-3')), 
+		        new CalendarView(strtotime($year . '-4')),
+		        new CalendarView(strtotime($year . '-5')),
+		        new CalendarView(strtotime($year . '-6')),
+		        new CalendarView(strtotime($year . '-7')),
+		        new CalendarView(strtotime($year . '-8')),
+		        new CalendarView(strtotime($year . '-9')),
+		        new CalendarView(strtotime($year . '-10')),
+		        new CalendarView(strtotime($year . '-11')),
+		        new CalendarView(strtotime($year . '-12'))
+		       );
+		} else{
+			$calendar = array(new CalendarView(strtotime($year . '-' . $month)));
 		
-		//time()は、UNIXタイムスタンプ（現在）を取得するための関数。
-		$calendar = array(new CalendarView(strtotime('2022-1')), 
-		                  new CalendarView(strtotime('2022-2')), 
-		                  new CalendarView(strtotime('2022-3')), 
-		                  new CalendarView(strtotime('2022-4')),
-		                  new CalendarView(strtotime('2022-5')),
-		                  new CalendarView(strtotime('2022-6')),
-		                  new CalendarView(strtotime('2022-7')),
-		                  new CalendarView(strtotime('2022-8')),
-		                  new CalendarView(strtotime('2022-9')),
-		                  new CalendarView(strtotime('2022-10')),
-		                  new CalendarView(strtotime('2022-11')),
-		                  new CalendarView(strtotime('2022-12'))
-		                  );
+		}
 		
-	    
-
-		//dd(date("Y/m/d H:i:s",$time));
-		
-		return view('calendar', [
-			"calendar" => $calendar
-		]);
+		return view('calendar', ["calendar" => $calendar, "year" => $year, "month" => $month]);
 	}
 	
 	

@@ -47,9 +47,14 @@ class CalendarView {
 			foreach($days as $day){
 				// cssのクラス名動的
 				$html[] = '<td class="'.$day->getClassName().'">';
-				$html[] = '<a href="'.route('next_page', ['day' => $day->numberDay()]).'">';
+				// パラメータ
+				$html[] = '<a href="'.route('price_page', ['day' => $day->numberDay()]).'">';
                 // カレンダーの数字
 				$html[] = $day->render();
+				// 支出の合計
+				$html[] = '<p class="sumPrice">'.$day->sumPrice().'</p>';
+				// 収支の合計
+				$html[] = '<p class="sumIncome">'.$day->sumIncome().'</p>';
 				$html[] = '</td>';
 			}
 			$html[] = '</tr>';

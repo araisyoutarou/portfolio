@@ -14,15 +14,14 @@ class Book extends Model
     
     // 更新可能カラム
     protected $fillable  = array(
-        'diary', 'income', 'spending', 'price', 'user_id',
+        'diary', 'spending', 'price', 'user_id',
         );
     
     //
     public static $rules = array(
-        'income' => 'required',
+        'price' => 'required|numeric|digits_between:1,9',
         'spending' => 'required',
-        'price' => 'required',
-        'diary' => 'required',
+        'diary' => 'required|string|max:100',
     );
     
    

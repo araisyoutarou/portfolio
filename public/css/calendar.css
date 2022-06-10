@@ -1,6 +1,9 @@
 .day-blank {
 	background-color: #efefef;
 }
+.day-blank > a {
+	display: none;
+}
 .day-sun .day{
 	color:red;
 }
@@ -10,6 +13,8 @@
 .calendar table td {	
 	padding: 3px;
 	border: solid 1px #999;
+	width: 14%;
+	height: 73px;
 }
 .calendar table td:before {
 	display: block;
@@ -43,4 +48,80 @@
 
 .button {
 	text-align: center;
+}
+
+.memo {
+	display: flex;
+}
+
+.block {
+	margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.total {
+	margin-left: 10% ;
+    margin-right: 55%;
+    display: flex;
+}
+
+.textarea {
+	width: 350%;
+	margin-left: 30%;
+}
+
+.history {
+	margin-left: 100% ;
+	width: 100%;
+}
+
+.back_button {
+	height: 30px;
+	position: relative;
+	bottom: 120px;
+	/*left:70px;*/
+}
+
+.update_button {
+	position: relative;
+	top: 20px;
+	/*left:10px;*/
+}
+
+.hoge {
+	visibility:hidden;
+}
+
+.sumPrice {
+	color: blue;
+	line-height: 1;
+}
+
+.sumIncome {
+	color: red;
+	line-height: 0.01;
+}
+
+.date {
+	border: 1px solid;
+}
+
+.prices {
+	border: 1px solid;
+	border-radius: 5px;
+	/*padding: 1px;*/
+	/*padding-right: 50px;*/
+}
+
+.submit {
+	position: relative;
+	left: 85px;
+	margin-top: 4px;
+	margin-right: 5px;
+}
+
+.ud-submit {
+	margin-top: 4px;
+	margin-right: 5px;
 }

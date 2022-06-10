@@ -10,7 +10,7 @@ class GraphController extends Controller
     public function index(Request $request) 
     {
 
-        return \App\Sale::select('spending_graph', 'income_graph')
+        return \App\Graph::select('', '')
             ->where('month', $request->month)
             ->get();
 
@@ -19,7 +19,7 @@ class GraphController extends Controller
     public function months()
     {
 
-        return \App\Sale::select('month')
+        return \App\Graph::select('month')
             ->groupBy('month')
             ->pluck('month');
 

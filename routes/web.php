@@ -18,17 +18,28 @@ Auth::routes();
 
 
 Route::group(['middleware' => 'auth'], function() {
+   // カレンダー画面
    Route::get('/', 'CalendarController@show')->name('top_page');
-   Route::get('calendar/memo', 'CalendarMemoController@show')->name('next_page');
-   Route::get('calendar/memo/edit', 'CalendarMemoController@edit')->name('edit_page');
+   // 支出登録画面
+   Route::get('calendar/memo', 'CalendarMemoController@show')->name('price_page');
+   // データ画面
    Route::get('debug', 'DebugController@show')->name('debug');
+   // パラメータ＿支出
    Route::get('calendar/memo/index', 'CalendarMemoController@index')->name('index_page');
-   //Route::get('calendar/memo/delete', 'CalendarMemoController@delete')->name('delete_page');
-   Route::get('graph', 'GraphController@show')->name('graph_show_page');
-   Route::get('ajax/graph', 'Ajax\GraphController@index'); // 売上データ取得
-   Route::get('ajax/graph/months', 'Ajax\GraphController@months'); // 月データ取得
-   
-   Route::post('/create', 'CalendarMemoController@create')->name('create_page');
-   Route::post('calendar/memo/edit', 'CalendarMemoController@update')->name('update_page'); 
+   // 収入登録画面
+   Route::get('calendar/income', 'CalendarIncomeController@show')->name('income_page');
+   // パラメータ＿収入
+   Route::get('calendar/income/index', 'CalendarIncomeController@index')->name('index_income_page');
 
+   Route::get('graph', 'GraphController@index')->name('graph_page');
+
+   Route::post('/create', 'CalendarMemoController@create')->name('create_page');
+   Route::post('/update_delete', 'CalendarMemoController@update')->name('update_delete_page');
+
+   Route::post('/create_income', 'CalendarIncomeController@create')->name('create_income_page');
+   Route::post('/update_income', 'CalendarIncomeController@update')->name('update_income_page'); 
+
+
+   Route::put('/update', 'CalendarMemoController@update');
+   Route::get('/chart',     'PlaceController@index');
 });

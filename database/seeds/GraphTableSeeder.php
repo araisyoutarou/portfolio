@@ -24,11 +24,11 @@ class GraphTableSeeder extends Seeder
             ];
             
             for($i = 0 ; $i < 100 ; $i++) {
-                $sale = new \App\Sale();
-                $sale->spending_graph = Arr::random($spending);
-                $sale->income_graph = rand(1000, 10000) * 10;
-                $sale->month = rand(1, 12);
-                $sale->save();
+                $graph = new \App\Graph();
+                $graph->spending_name = Arr::random($spending);
+                $graph->price_graph = rand(0, 1000000);
+                $graph->month = rand(1, 12);
+                $graph->save();
                 
             }
         
