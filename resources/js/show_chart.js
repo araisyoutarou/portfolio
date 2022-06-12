@@ -1,4 +1,4 @@
-import 'chart.js';
+
 
 window.make_chart = function make_chart(id, labels, data)
 {

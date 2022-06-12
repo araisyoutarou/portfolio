@@ -2,7 +2,7 @@
 @section('content')
 <div class="button">
    <button disabled>カレンダー</button>
-   <button onclick="location.href='https:/graph'">円グラフ</button>
+   <button onclick="location.href='https:/chart'">円グラフ</button>
 </div>
 <h1 class="title">家計簿アプリ</h1>
 <div class="years">

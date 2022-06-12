@@ -11,7 +11,7 @@ class CalendarMemoController extends Controller
         // whereDateは、Bookモデルから指定したカラムで該当する値のレコードを絞り込んで、getでそれを配列にして返す。
         $books= Book::whereDate('date', $request->day)->get();
         // 変数の中身を初期化
-        $prices = NULL;
+        $prices = 0;
 
         foreach($books as $column){
             // 代入を工夫

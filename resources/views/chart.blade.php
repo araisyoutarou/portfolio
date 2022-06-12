@@ -1,25 +1,25 @@
-<!DOCTYPE html>
-<html lang="ja">
+@extends('layouts.app')
+@section('content')
 
-   <head>
-       <meta charset="utf-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="button">
+   <button onclick="location.href='https:/'">カレンダー</button>
+   <button disabled>円グラフ</button>
+</div>
+<h1 class="title">家計簿アプリ</h1>
 
-       <title>Laravel</title>
-   </head>
+<div class="content">
+   <div>
+      <canvas id="allChart"></canvas>
+   </div>
+   aaa
+</div>
 
-   <body>
-       <div class="content">
-           <canvas id="allChart"></canvas>
-       </div>
 
-       <script src="{{ mix('js/show_chart.js') }}"></script>
-       <script>
-           id = 'allChart';
-           labels = @json($keys);
-           data = @json($counts);
-           make_chart(id,labels,data);
-       </script>
-   </body>
 
-</html>
+<script>
+   id = 'allChart';
+   labels = @json($keys);
+   data = @json($counts);
+   make_chart(id,labels,data);
+</script>
+@endsection

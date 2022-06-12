@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function() {
    // パラメータ＿収入
    Route::get('calendar/income/index', 'CalendarIncomeController@index')->name('index_income_page');
 
-   Route::get('graph', 'GraphController@index')->name('graph_page');
+   Route::get('/chart', 'PlaceController@index')->name('chart_page');
 
    Route::post('/create', 'CalendarMemoController@create')->name('create_page');
    Route::post('/update_delete', 'CalendarMemoController@update')->name('update_delete_page');
@@ -41,5 +41,4 @@ Route::group(['middleware' => 'auth'], function() {
 
 
    Route::put('/update', 'CalendarMemoController@update');
-   Route::get('/chart',     'PlaceController@index');
 });

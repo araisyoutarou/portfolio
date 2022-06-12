@@ -6,7 +6,7 @@
 </div>
 <div class="total">
     <label class="col-md-2" for="price">支出合計</label>
-    <label class="prices">{{ $prices }}@if($prices)<label>円</label>@else<label>0円</label>@endif</label>
+    <label class="prices">{{ $prices }}円</label>
 </div>
 <div class="block">
     <form action="{{ route('create_page') }}" method="post">
