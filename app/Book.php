@@ -9,6 +9,11 @@ class Book extends Model
     // テーブルの紐付け
     protected $table = 'books';
     
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+    
     // プライマリキー
     protected $primaryKey = 'id';
     
@@ -17,7 +22,6 @@ class Book extends Model
         'diary', 'spending', 'price', 'user_id',
         );
     
-    //
     public static $rules = array(
         'price' => 'required|numeric|digits_between:1,9',
         'spending' => 'required',

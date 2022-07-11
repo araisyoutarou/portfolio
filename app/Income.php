@@ -9,6 +9,11 @@ class Income extends Model
     // テーブルの紐付け
     protected $table = 'incomes';
     
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+    
     // プライマリキー
     protected $primaryKey = 'income_id';
     
@@ -16,5 +21,10 @@ class Income extends Model
     protected $fillable  = array(
         'income', 'income_spending', 'income_diary', 'user_id',
         );
-    
+        
+    public static $rules = array(
+        'income' => 'required|numeric|digits_between:1,9',
+        'income_spending' => 'required',
+        'income_diary' => 'required|string|max:100',
+    );
 }

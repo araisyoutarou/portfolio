@@ -3,14 +3,109 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Book;
+use App\Income;
 
 class PlaceController extends Controller
 {
-    public function index()
-   {
-       // ソート済みの配列を返す
-       $keys = ['家','研究室','外出','学内','長期不在'];
-       $counts = [10,4,3,2,1];
-       return view('chart',compact('keys','counts'));
+    public function show(Request $request)
+    {
+        date_default_timezone_set('UTC');
+		$year = $request->year;
+		$month = $request->month;
+		$chartYear = $request->year;
+		$chartMonth = $request->month;
+		$syokuhi = 0;
+		$gaisyoku = 0;
+		$nitiyouhin = 0;
+		$suidoukounetuhi = 0;
+		$tuusinnhi = 0;
+		$koutuuhi = 0;
+		$cardkessai = 0;
+		$zeikin = 0;
+		$sonota = 0;
+		
+		if($year == null){
+		    $year = date('Y');
+		}
+		
+		if($month == null){
+		    $month = date('m');
+		}
+		
+		if($month != 'year'){
+		    $year .= '-' . $month;
+		}
+		
+        // ソート済みの配列を返す
+        $keys = ['食費','外食','日用品','水道光熱費','通信費','交通費','カード決済','税金','その他'];
+        // 前方一致
+        $spendings = Book::where([['user_id', \Auth::user()->id]])->where('date', 'like', $year . '%')->get();
+        foreach($spendings as $spending){
+            switch($spending->spending){
+                case '食費':
+                $syokuhi += $spending->price;
+                break;
+                
+                case '外食':
+                $gaisyoku += $spending->price;
+                break;
+                
+                case '日用品':
+                $nitiyouhin += $spending->price;
+                break;
+                
+                case '水道光熱費':
+                $suidoukounetuhi += $spending->price;
+                break;
+                
+                case '通信費':
+                $tuusinnhi += $spending->price;
+                break;
+                
+                case '交通費':
+                $koutuuhi += $spending->price;
+                break;
+                
+                case 'カード決済':
+                $cardkessai += $spending->price;
+                break;
+                
+                case '税金':
+                $zeikin += $spending->price;
+                break;
+                
+                default:
+                $sonota += $spending->price;
+                break;
+            }
+        }
+        
+        $counts = [$syokuhi,$gaisyoku,$nitiyouhin,$suidoukounetuhi,$tuusinnhi,$koutuuhi,$cardkessai,$zeikin,$sonota];
+        
+        if($chartYear == null){
+		    $chartYear = date('Y');
+		}
+		
+		if($chartMonth == null){
+		    $chartMonth = date('m');
+		}
+      
+        // 支出の合計
+        $books = Book::where([['user_id', \Auth::user()->id]])->where('date', 'like', $year . '%')->get();
+        $prices = 0;
+        foreach($books as $column){
+            $prices += $column->price;
+        }
+        
+        // 収入の合計
+        $income_books = Income::where([['user_id', \Auth::user()->id]])->where('date', 'like', $year . '%')->get();
+        $incomes = 0;
+        foreach($income_books as $column){
+            $incomes += $column->income;
+        }
+        
+        return view('chart',["year" => $year, "month" => $month, 'keys' => $keys, 'counts' => $counts, 'prices' => $prices, 'books' => $books, 
+        'incomes' => $incomes, 'income_books' => $income_books, 'date' => $request->month, 'chartYear' => $chartYear, 'chartMonth' => $chartMonth]);
    }
 }

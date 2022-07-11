@@ -27,7 +27,7 @@ class CalendarWeekDay {
 	}
 	
 	function sumPrice(){
-		$books = Book::whereDate('date', $this->carbon->format("Y-m-d"))->get();
+		$books = Book::where([['user_id', \Auth::user()->id], ['date', $this->carbon->format("Y-m-d")]])->get();
         // 変数の中身を初期化
         $prices = NULL;
         foreach($books as $column){
@@ -37,11 +37,12 @@ class CalendarWeekDay {
         if($prices){
         	$prices .= "円";
         }
+        
         return $prices;
 	}
 	
 	function sumIncome(){
-		$income_books = Income::whereDate('date', $this->carbon->format("Y-m-d"))->get();
+		$income_books = Income::where([['user_id', \Auth::user()->id], ['date', $this->carbon->format("Y-m-d")]])->get();
         // 変数の中身を初期化
         $incomes = NULL;
         foreach($income_books as $column){

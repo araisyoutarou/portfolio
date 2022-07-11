@@ -8,16 +8,14 @@ use App\Book;
 class CalendarMemoController extends Controller
 {
     public function show(Request $request){
-        // whereDateは、Bookモデルから指定したカラムで該当する値のレコードを絞り込んで、getでそれを配列にして返す。
-        $books= Book::whereDate('date', $request->day)->get();
+        $books = Book::where([['user_id', \Auth::user()->id], ['date', $request->day]])->get();
         // 変数の中身を初期化
         $prices = 0;
-
         foreach($books as $column){
-            // 代入を工夫
             $prices += $column->price;
+        
         }
-
+        
         return view('CalendarMemo', ['prices' => $prices, 'books' => $books, 'date' => $request->day]);
     }
     
@@ -57,7 +55,6 @@ class CalendarMemoController extends Controller
     public function update(Request $request)
     {
         if($request->has('upd_book')){
-            // $request->validate(Book::$rules);
             // 送信されてきたフォームデータを格納する
             $books_forms = $request->all();
             // formから送られてきた_tokenを削除

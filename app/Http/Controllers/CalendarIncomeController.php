@@ -8,10 +8,9 @@ use App\Income;
 class CalendarIncomeController extends Controller
 {
     public function show(Request $request){
-        // whereDateは、Incomeモデルから指定したカラムで該当する値のレコードを絞り込んで、getでそれを配列にして返す。
-        $income_books = Income::whereDate('date', $request->day)->get();
+        $income_books = Income::where([['user_id', \Auth::user()->id], ['date', $request->day]])->get();
         // 変数の中身を初期化
-        $incomes = NULL;
+        $incomes = 0;
         foreach($income_books as $column){
             // 代入を工夫
             $incomes += $column->income;
@@ -25,11 +24,7 @@ class CalendarIncomeController extends Controller
         // Incomeモデルにデータを保存
         // 保存した後は、CalendarMemoViewに飛ばす
         // Varidationを行う
-        $request->validate([
-            'income' => 'required|numeric|digits_between:1,10',
-            'income_spending' => 'required',
-            'income_diary' => 'required|string|max:100',
-        ]);
+        $request->validate(Income::$rules);
         $incomes = new Income;
         $incomes->income = $request->income;
         $incomes->income_spending = $request->income_spending;

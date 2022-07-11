@@ -18,15 +18,15 @@
    <th>月を選択</th>
    <select id="monthSelect" name="month" onChange="showCalender()">
       <option value="&month=year">年間</option>
-      <option value="&month=1">1月</option>
-      <option value="&month=2">2月</option>
-      <option value="&month=3">3月</option>
-      <option value="&month=4">4月</option>
-      <option value="&month=5">5月</option>
-      <option value="&month=6">6月</option>
-      <option value="&month=7">7月</option>
-      <option value="&month=8">8月</option>
-      <option value="&month=9">9月</option>
+      <option value="&month=01">1月</option>
+      <option value="&month=02">2月</option>
+      <option value="&month=03">3月</option>
+      <option value="&month=04">4月</option>
+      <option value="&month=05">5月</option>
+      <option value="&month=06">6月</option>
+      <option value="&month=07">7月</option>
+      <option value="&month=08">8月</option>
+      <option value="&month=09">9月</option>
       <option value="&month=10">10月</option>
       <option value="&month=11">11月</option>
       <option value="&month=12">12月</option>

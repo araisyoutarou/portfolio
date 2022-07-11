@@ -13,11 +13,11 @@
         <div class="textarea">
             <label class="col-md-2" for="price">支出</label>
             <div class="col-md-10">
-                <input type="text" class="form-control" name="price" maxlength="9" value="{{ old('price') }}">
+                <input type="text" class="form-control" name="price" maxlength="9" value="{{ old('price') }}" id="price">
             </div>
             <label class="col-md-2" for="spending">項目の選択</label>
             <div class="col-md-10">
-                <select class="form-control" name="spending" value="{{ old('spending') }}">
+                <select class="form-control" name="spending" value="{{ old('spending') }}" id="spending">
                     <option value="未選択">選択してください</option>
                     <option value="食費">食費</option>
                     <option value="外食">外食</option>
@@ -32,21 +32,38 @@
             </div>
             <label class="col-md-2" for="diary">買い物メモ</label>
             <div class="col-md-10">
-                <textarea class="form-control" name="diary" rows="15" maxlength="100">{{ old('diary') }}</textarea>
+                <textarea class="form-control" name="diary" rows="15" maxlength="100" id="diary">{{ old('diary') }}</textarea>
             </div>
         </div>
         @csrf
-        <input type="submit" class="btn btn-primary submit" value="登録" id="button1">
-        <input type="submit" class="btn btn-primary submit" value="戻る" id="button2" onclick="back(); history.back(-1)">
-        <input type="submit" class="btn btn-primary submit" value="収入登録" id="button3" onclick="income()">
+        <input type="submit" class="btn btn-primary submit" value="登録" id="button1" onClick="return register()">
+        <input type="submit" class="btn btn-primary submit" value="戻る" id="button2" onClick="back(); history.back(-1)">
+        <input type="submit" class="btn btn-primary submit" value="収入登録" id="button3" onClick="income()">
         <input type="hidden" name="date" value="{{ $date }}">
     </form>
     <script>
+        const price = document.getElementById('price');
+        const spending = document.getElementById('spending');
+        const diary = document.getElementById('diary');
+        const button1 = document.getElementById('button1');
+        const upd = document.getElementById('upd');
+        const del = document.getElementById('del');
+
+        const register = () =>{
+            if(price.value.length == 0 || spending.value.length == 0 || diary.value.length == 0) {
+                alert('『支出』 『項目』 『買い物メモ』全てに入力してください');
+            } else {
+                if (!window.confirm('登録してもよろしいですか？')){return false} 
+            
+            }
+        };
+        
         function back() {
           document.getElementById("button1").disabled = false;
           document.getElementById("button2").disabled = true;
           document.getElementById("button3").disabled = false;
         }
+        
         function income() {
           document.getElementById("button1").disabled = false;
           document.getElementById("button2").disabled = false;
@@ -54,13 +71,16 @@
           var paramstr = document.location.search;
           document.location.href = "/calendar/income"+paramstr;
         }
-    
-        function confirm_test() {
-            var select = confirm("登録完了");
-            return select;
-        }
+        
+        const upd_button = () =>{
+            if (!window.confirm('更新してもよろしいですか？')){return false} 
+        };
+        
+        const del_button = () =>{
+            if (!window.confirm('削除してもよろしいですか？')){return false} 
+        };
     </script>
-    <form action="{{ route('update_delete_page') }}" method="post" onsubmit="return confirm_test()">
+    <form action="{{ route('update_delete_page') }}" method="post">
         <div class="history">
             <h2>支出履歴</h2>
             <table border="1" width="600">
@@ -70,7 +90,6 @@
                     <th>項目</th>
                     <th>買い物メモ</th>
                     <th>削除ボタン</th>
-                </tr>
                 @foreach ($books as $book)
                 <tr>
                     <input type="hidden" name="id-{{ $book->id }}" value="{{ $book->id }}" >
@@ -94,12 +113,12 @@
                 </tr>
                 @endforeach
             </table>
-            <input type="submit" name="upd_book"  class="btn btn-primary ud-submit" value="一括更新" >
-            <input type="submit" name="del_book"  class="btn btn-primary ud-submit" value="一括削除" >
+            <input type="submit" name="upd_book"  class="btn btn-primary ud-submit" value="一括更新" id="upd" onClick="return upd_button()">
+            <input type="submit" name="del_book"  class="btn btn-primary ud-submit" value="一括削除" id="del" onClick="return del_button()">
             <input type="hidden" name="date" value="{{ $date }}">
         </div>
         @csrf
-    </form> 
+    </form>
 </div>
 
 @endsection
